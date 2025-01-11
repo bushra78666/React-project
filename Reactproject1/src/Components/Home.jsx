@@ -8,27 +8,31 @@ import axios from '../Utils/axios'
 
 const Home = () => {
 
- const [products] = useContext(ProductContext)
- const {search} = useLocation();
- const category = decodeURIComponent(search.split("=")[1])
+  const [products] = useContext(ProductContext);
+  const { search } = useLocation();
+  const category = search ? decodeURIComponent(search.split('=')[1]) : null;
 
- const [filteredProducts, setfilteredProducts] = useState(products)
+  const [filteredProducts, setFilteredProducts] = useState(null);
 
- const getproductscategory = async () => {
-  try{
-    const {data} = await axios.get(`/products/category/${category}`)
-    setfilteredProducts(data)
-  }
-   catch(error){
-    console.log(error)
-  }
- }
- useEffect(() =>{
-  if(category.length > 0){
-    getproductscategory()
- }},[category])
+  const getProductsByCategory = async () => {
+    try {
+      if (category && category !== 'undefined') {
+        const { data } = await axios.get(`/products/category/${category}`);
+        setFilteredProducts(data);
+      }
+    } catch (error) {
+      console.error('Error fetching products by category:', error);
+    }
+  };
 
- console.log(filteredProducts)
+  useEffect(() => {
+    if (!category || category === 'undefined') {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(products.filter((p) => p.category === category));
+      getProductsByCategory();
+    }
+  }, [category, products]);
   return products ? (
      <>
      <Nav/>
