@@ -3,7 +3,7 @@ import { Route, Routes, useLocation, Link } from 'react-router-dom';
 import Details from './Components/Details.jsx';
 import Home from './Components/Home.jsx';
 import Create from './Components/Create.jsx';
-
+import Edit from './Components/Edit.jsx';
 
 
 const App = () => {
@@ -27,6 +27,7 @@ console.log(search, pathname);
      <Route path='/' element={<Home />} />
      <Route path='/Create' element={ <Create/>  } />
      <Route path='/details/:id' element={<Details />} />
+     <Route path='/edit/:id' element={<Edit />} />
    </Routes>
     </div>
   )

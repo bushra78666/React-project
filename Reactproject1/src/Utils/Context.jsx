@@ -4,7 +4,7 @@ import React, { createContext, useState , useEffect} from 'react'
 export const  ProductContext = createContext();
 
 const Context = (props) => {
-    const [products , setProducts] = useState(JSON.parse(localStorage.getItem("products")) || null)
+    const [products , setproducts] = useState(JSON.parse(localStorage.getItem("products")) || null)
 
     // const getProducts = async () => {
     //   try{
@@ -19,11 +19,11 @@ const Context = (props) => {
     //   getProducts()
     // }, [])
   return (
-    <ProductContext.Provider value={[products, setProducts]}>
+    <ProductContext.Provider value={[products, setproducts]}>
      {props.children}
      </ProductContext.Provider>
 
   )
 }
 
-export default Context
+export default Context;
